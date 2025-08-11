@@ -15,9 +15,10 @@ const Hero = () => {
       <img
         alt="Photo of Muhammad Abdul Rehman Khan"
         width="175"
+        height="175"
+        fetchpriority="high"
         className="rounded-lg"
         src={ProfileImage}
-        fetchpriority="high"
       />
       <div className="flex max-w-[320px] flex-col sm:max-w-full">
         <h1 className="text-balance text-4xl sm:text-5xl font-bold text-white ">
