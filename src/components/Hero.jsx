@@ -2,7 +2,7 @@ import {motion} from 'framer-motion';
 import {useState} from 'react';
 import ProfileImage from '../assets/ProfilePhoto.jpg';
 import {
-  LuArrowRight,
+  LuArrowDownRight,
   LuFileDown,
   LuLinkedin,
   LuGithub,
@@ -19,8 +19,8 @@ const Hero = () => {
         src={ProfileImage}
       />
       <div className="flex max-w-[320px] flex-col sm:max-w-full">
-        <h1 className="text-balance text-4xl sm:text-5xl font-bold text-white">
-          I'm Abdul Rehman.
+        <h1 className="text-balance text-4xl sm:text-5xl font-bold text-white ">
+          I'm Abdul Rehman
         </h1>
         <p className="mt-2 whitespace-nowrap text-sm font-medium sm:text-base text-white/90">
           Software Engineer from Pakistan 🇵🇰
@@ -29,12 +29,11 @@ const Hero = () => {
           Full-stack developer passionate about creating innovative solutions
           and beautiful user experiences.
         </p>
-
-        <div className="mt-6 flex items-center gap-1">
-          <p className="text-balance text-sm font-semibold sm:text-base text-white">
-            Let's connect and build something amazing{' '}
-            <LuArrowRight className="text-white text-xl" />
+        <div>
+          <p className="text-balance text-sm font-semibold sm:text-base text-white inline-flex items-center gap-1 mt-6 ">
+            Let's connect and build something amazing
           </p>
+          <LuArrowDownRight className="hidden sm:inline text-white text-xl" />
         </div>
 
         <SocialLinks />
@@ -65,7 +64,7 @@ const SocialLinks = () => {
   ];
 
   return (
-    <section className="mt-6 flex flex-wrap items-center gap-4">
+    <section className="mt-6 flex flex-wrap items-center gap-6 min">
       <motion.a
         href="/Resume.pdf"
         target="_blank"
@@ -89,7 +88,7 @@ const SocialLinks = () => {
         <LuFileDown className="text-lg relative z-10" />
       </motion.a>
 
-      <div className="flex gap-4">
+      <div className="flex min-w-24 justify-between">
         {socialLinks.map((link, idx) => (
           <a
             key={link.name}

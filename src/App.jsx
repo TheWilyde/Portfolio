@@ -17,16 +17,14 @@ const App = () => {
   const isProjects = path === '/projects';
 
   return (
-    // Make the whole app fill the viewport and stack vertically
     <div className="min-h-screen supports-[height:100dvh]:min-h-[100dvh] flex flex-col">
       <Navbar />
-      {/* Let the content area grow so the footer sticks to the bottom when content is short */}
       <div className="mx-auto flex-1 w-full max-w-3xl flex flex-col px-8">
         <main className="grow">
           {isProjects ? (
             <Projects />
           ) : (
-            <article className="mt-8 flex flex-col gap-16 pb-16">
+            <article className="mt-8 flex flex-col gap-16 pb-10 sm:pb-16">
               <Hero />
               <WorkExperience />
               <FeaturedProjects />

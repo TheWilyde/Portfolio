@@ -14,7 +14,7 @@ const Navbar = () => {
     <header className="sticky top-0 z-50 backdrop-blur-sm border-b border-white/10">
       <div className="mx-auto max-w-3xl px-8 py-6">
         <nav className="flex items-center justify-start">
-          <ul className="flex gap-4 sm:gap-8">
+          <ul className="flex gap-6 sm:gap-8">
             {navLinks.map((link, idx) => (
               <li key={link.label}>
                 <motion.a
