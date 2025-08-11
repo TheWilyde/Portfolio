@@ -2,9 +2,9 @@ import {useState} from 'react';
 import {motion} from 'framer-motion';
 
 const navLinks = [
-  {label: 'Home', href: '#'},
-  {label: 'Projects', href: '#'},
-  {label: 'Contact', href: '#'},
+  {label: 'Home', href: '/'},
+  {label: 'Projects', href: '/projects'},
+  {label: 'Contact', href: 'mailto:thewilyde@gmail.com'},
 ];
 
 const Navbar = () => {

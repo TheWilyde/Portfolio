@@ -32,9 +32,9 @@ const Hero = () => {
 
         <div className="mt-6 flex items-center gap-1">
           <p className="text-balance text-sm font-semibold sm:text-base text-white">
-            Let's connect and build something amazing
+            Let's connect and build something amazing{' '}
+            <LuArrowRight className="text-white text-xl" />
           </p>
-          <LuArrowRight className="text-white text-xl" />
         </div>
 
         <SocialLinks />

@@ -1,20 +1,41 @@
+import {useEffect, useState} from 'react';
 import Navbar from './components/Navbar.jsx';
 import Hero from './components/Hero.jsx';
 import WorkExperience from './components/WorkExperience.jsx';
+import FeaturedProjects from './components/FeaturedProjects.jsx';
+import Footer from './components/Footer.jsx';
+import Projects from './pages/Projects.jsx';
 
 const App = () => {
+  const [path, setPath] = useState(window.location.pathname);
+  useEffect(() => {
+    const onPop = () => setPath(window.location.pathname);
+    window.addEventListener('popstate', onPop);
+    return () => window.removeEventListener('popstate', onPop);
+  }, []);
+
+  const isProjects = path === '/projects';
+
   return (
-    <>
+    // Make the whole app fill the viewport and stack vertically
+    <div className="min-h-screen supports-[height:100dvh]:min-h-[100dvh] flex flex-col">
       <Navbar />
-      <div className="mx-auto flex max-w-3xl flex-col px-8">
+      {/* Let the content area grow so the footer sticks to the bottom when content is short */}
+      <div className="mx-auto flex-1 w-full max-w-3xl flex flex-col px-8">
         <main className="grow">
-          <article className="mt-8 flex flex-col gap-16 pb-16">
-            <Hero />
-            <WorkExperience />
-          </article>
+          {isProjects ? (
+            <Projects />
+          ) : (
+            <article className="mt-8 flex flex-col gap-16 pb-16">
+              <Hero />
+              <WorkExperience />
+              <FeaturedProjects />
+            </article>
+          )}
         </main>
       </div>
-    </>
+      <Footer />
+    </div>
   );
 };
 
