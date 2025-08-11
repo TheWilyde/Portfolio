@@ -17,6 +17,7 @@ const Hero = () => {
         width="175"
         className="rounded-lg"
         src={ProfileImage}
+        fetchpriority="high"
       />
       <div className="flex max-w-[320px] flex-col sm:max-w-full">
         <h1 className="text-balance text-4xl sm:text-5xl font-bold text-white ">
