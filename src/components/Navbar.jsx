@@ -10,6 +10,15 @@ const navLinks = [
 const Navbar = () => {
   const [hovered, setHovered] = useState(null);
 
+  // Intercept internal links to avoid full page reloads and Vercel 404s
+  const navigate = (e, href) => {
+    e.preventDefault();
+    if (window.location.pathname !== href) {
+      window.history.pushState({}, '', href);
+      window.dispatchEvent(new PopStateEvent('popstate'));
+    }
+  };
+
   return (
     <header className="sticky top-0 z-50 backdrop-blur-sm border-b border-white/10">
       <div className="mx-auto max-w-3xl px-8 py-6">
@@ -30,7 +39,10 @@ const Navbar = () => {
                   }}
                   transition={{duration: 0.2, ease: 'easeInOut'}}
                   onMouseEnter={() => setHovered(idx)}
-                  onMouseLeave={() => setHovered(null)}>
+                  onMouseLeave={() => setHovered(null)}
+                  onClick={(e) => {
+                    if (link.href.startsWith('/')) navigate(e, link.href);
+                  }}>
                   {link.label}
                 </motion.a>
               </li>
