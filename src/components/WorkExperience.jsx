@@ -86,7 +86,7 @@ const WorkExperience = () => {
           className={`rounded-md px-3 py-1 text-sm font-medium transition-all ${
             activeTab === 'work'
               ? 'bg-white/20 text-white shadow'
-              : 'text-white/60 hover:text-white'
+              : 'text-white/80'
           }`}>
           Work
         </button>
@@ -95,7 +95,7 @@ const WorkExperience = () => {
           className={`rounded-md px-3 py-1 text-sm font-medium transition-all ${
             activeTab === 'education'
               ? 'bg-white/20 text-white shadow'
-              : 'text-white/60 hover:text-white'
+              : 'text-white/80'
           }`}>
           Education
         </button>

@@ -1,10 +1,12 @@
-import {useEffect, useState} from 'react';
+import {useEffect, useState, lazy, Suspense} from 'react';
 import Navbar from './components/Navbar.jsx';
 import Hero from './components/Hero.jsx';
 import WorkExperience from './components/WorkExperience.jsx';
 import FeaturedProjects from './components/FeaturedProjects.jsx';
 import Footer from './components/Footer.jsx';
-import Projects from './pages/Projects.jsx';
+
+// Lazy-load Projects so it doesn't block initial render
+const Projects = lazy(() => import('./pages/Projects.jsx'));
 
 const App = () => {
   const [path, setPath] = useState(window.location.pathname);
@@ -21,15 +23,17 @@ const App = () => {
       <Navbar />
       <div className="mx-auto flex-1 w-full max-w-3xl flex flex-col px-8">
         <main className="grow">
-          {isProjects ? (
-            <Projects />
-          ) : (
-            <article className="mt-8 flex flex-col gap-16 pb-10 sm:pb-16">
-              <Hero />
-              <WorkExperience />
-              <FeaturedProjects />
-            </article>
-          )}
+          <Suspense fallback={null}>
+            {isProjects ? (
+              <Projects />
+            ) : (
+              <article className="mt-8 flex flex-col gap-16 pb-10 sm:pb-16">
+                <Hero />
+                <WorkExperience />
+                <FeaturedProjects />
+              </article>
+            )}
+          </Suspense>
         </main>
       </div>
       <Footer />
