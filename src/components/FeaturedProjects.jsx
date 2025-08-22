@@ -1,18 +1,17 @@
 import {LuMoveRight, LuGithub, LuGlobe} from 'react-icons/lu';
+import {projects} from '../data/projects.js';
 
 const FeaturedProjects = () => {
-  const projects = [
-    /*{
-      title: '',
-      description: '',
-      image: '',
-      technologies: ['', '', ''],
-      links: {
-        website: '',
-        github: '',
-      },
-    },*/
-  ];
+  const marked = projects.filter((p) => p.featured);
+  const featured = marked.length ? marked.slice(0, 2) : projects.slice(0, 2);
+
+  const navigate = (e) => {
+    e.preventDefault();
+    if (window.location.pathname !== '/projects') {
+      window.history.pushState({}, '', '/projects');
+      window.dispatchEvent(new PopStateEvent('popstate'));
+    }
+  };
 
   return (
     <section className="flex flex-col gap-6">
@@ -22,13 +21,14 @@ const FeaturedProjects = () => {
         </h2>
         <a
           className="flex items-center gap-2 font-light text-white/70 hover:text-white transition-colors whitespace-nowrap"
-          href="/projects">
+          href="/projects"
+          onClick={navigate}>
           <span className="hidden sm:inline">view more</span>
           <LuMoveRight />
         </a>
       </div>
 
-      {projects.length === 0 ? (
+      {featured.length === 0 ? (
         <div className="rounded-xl border border-white/10 bg-white/5 p-6 text-center">
           <p className="text-sm text-white/80">
             No projects yet as they’re compiling in the multiverse. Check back
@@ -37,7 +37,7 @@ const FeaturedProjects = () => {
         </div>
       ) : (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-          {projects.map((project, index) => (
+          {featured.map((project, index) => (
             <div
               key={index}
               className="rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm flex flex-col">
@@ -49,7 +49,7 @@ const FeaturedProjects = () => {
                 />
               </div>
 
-              <div className="p-6 pt-0 flex flex-col gap-2">
+              <div className="px-6 py-3 pt-0 flex flex-col gap-2">
                 <h3 className="font-semibold text-white">{project.title}</h3>
                 <p className="text-xs text-white/70">{project.description}</p>
               </div>
@@ -71,7 +71,7 @@ const FeaturedProjects = () => {
                       href={project.links.website}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-2 rounded-md bg-white/20 px-2 py-1 text-[10px] font-semibold text-white hover:bg-white/30 transition-colors">
+                      className="flex items-center gap-2 rounded-md bg-[#a2f778] px-2 py-1 text-[10px] font-semibold text-black hover:bg-white/30 transition-colors">
                       <LuGlobe />
                       Website
                     </a>
@@ -81,7 +81,7 @@ const FeaturedProjects = () => {
                       href={project.links.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-2 rounded-md bg-white/20 px-2 py-1 text-[10px] font-semibold text-white hover:bg-white/30 transition-colors">
+                      className="flex items-center gap-2 rounded-md bg-[#a2f778] px-2 py-1 text-[10px] font-semibold text-black hover:bg-white/30 transition-colors">
                       <LuGithub />
                       Source
                     </a>
