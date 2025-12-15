@@ -7,8 +7,8 @@ export const projects = [
     image: MarkedImage,
     technologies: ['React', 'React Router', 'TypeScript', 'Tailwind'],
     links: {
-      website: 'https://note-taking-app-drab-theta.vercel.app/',
-      github: 'https://github.com/TheWilyde/Note-Taking-App',
+      website: 'https://wilyde-marked.netlify.app/',
+      github: 'https://github.com/TheWilyde/Marked',
     },
     featured: true,
   },
