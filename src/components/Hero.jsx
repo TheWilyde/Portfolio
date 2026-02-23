@@ -1,6 +1,6 @@
 import {motion} from 'framer-motion';
 import {useState} from 'react';
-import ProfileImage from '../assets/ProfilePhoto.jpg';
+import ProfileImage from '../assets/ProfilePhoto.webp';
 import {
   LuArrowDownRight,
   LuFileDown,
@@ -16,7 +16,7 @@ const Hero = () => {
         alt="Photo of Muhammad Abdul Rehman Khan"
         width="175"
         height="175"
-        fetchpriority="high"
+        fetchPriority="high"
         className="rounded-lg"
         src={ProfileImage}
       />
@@ -101,8 +101,8 @@ const SocialLinks = () => {
               hovered === null
                 ? 'text-white'
                 : hovered === idx
-                ? 'text-white'
-                : 'text-white/40'
+                  ? 'text-white'
+                  : 'text-white/40'
             }`}
             onMouseEnter={() => setHovered(idx)}
             onMouseLeave={() => setHovered(null)}

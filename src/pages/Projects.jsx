@@ -26,6 +26,9 @@ const Projects = () => {
                   rel="noopener noreferrer">
                   <img
                     alt={project.title}
+                    loading="lazy"
+                    width="600"
+                    height="300"
                     className="h-40 w-full object-cover object-top rounded-lg"
                     src={project.image}
                   />

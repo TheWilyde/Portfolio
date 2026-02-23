@@ -1,6 +1,6 @@
 import {useState} from 'react';
-import IqraUniversityLogo from '../assets/IqraUniversity.jpg';
-import AppualsLogo from '../assets/Appuals.jpg';
+import IqraUniversityLogo from '../assets/IqraUniversity.webp';
+import AppualsLogo from '../assets/Appuals.webp';
 
 const WorkExperience = () => {
   const [activeTab, setActiveTab] = useState('work');
@@ -48,6 +48,8 @@ const WorkExperience = () => {
                     className="size-12 rounded-full border object-contain"
                     alt={item.company || item.institution}
                     src={item.logo}
+                    width="48"
+                    height="48"
                   />
                 </a>
 

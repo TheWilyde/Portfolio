@@ -1,4 +1,4 @@
-import MarkedImage from '../assets/projects images/Marked.png';
+import MarkedImage from '../assets/projects_images/Marked.webp';
 
 export const projects = [
   {
