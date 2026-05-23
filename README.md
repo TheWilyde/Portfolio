@@ -1,112 +1,161 @@
-# Portfolio (React + Vite + Tailwind)
+# Portfolio (Astro + Tailwind)
 
-A minimal personal portfolio built with React, Vite, Tailwind CSS v4, Framer Motion, and React Icons.
+A minimal personal portfolio built with Astro, Tailwind CSS v4, and local content collections for blogs.
 
-> Design note: The visual design and UI patterns in this project are strongly inspired by Ted Awf’s portfolio (https://tedawf.com) and adapted to fit my own content and branding.
+> Design note: The visual design and UI patterns in this project are inspired by Ted Awf's portfolio (https://tedawf.com) and adapted to fit my own content and branding.
 
-- Sticky, semantic navbar with hover-dim effect via Framer Motion: [`Navbar`](src/components/Navbar.jsx) and [`navLinks`](src/components/Navbar.jsx)
-- Hero with social links hover-dim and a Resume button served from [`public/Resume.pdf`](public/Resume.pdf): [`Hero`](src/components/Hero.jsx) and [`SocialLinks`](src/components/Hero.jsx)
-- Work/Education tabbed timeline: [`WorkExperience`](src/components/WorkExperience.jsx)
-- Featured projects section (stub with “view more”): [`FeaturedProjects`](src/components/FeaturedProjects.jsx)
-- Projects page with simple path-based routing: [`Projects`](src/pages/Projects.jsx)
-- Sticky footer using a flex layout: [`Footer`](src/components/Footer.jsx)
-- App layout with sticky header, growing content area, and footer at the bottom: [`App`](src/App.jsx)
+- Sticky, semantic navbar with hover-dim effect: [`Navbar`](src/components/Navbar.astro)
+- Hero with social links and Resume button served from [`public/Resume.pdf`](public/Resume.pdf): [`Hero`](src/components/Hero.astro)
+- Work/Education tabbed timeline: [`WorkExperience`](src/components/WorkExperience.astro)
+- Featured projects section and reusable cards: [`FeaturedProjects`](src/components/FeaturedProjects.astro), [`ProjectCard`](src/components/ProjectCard.astro)
+- Projects page route: [`/projects`](src/pages/projects.astro)
+- Blogs listing and post pages with Markdown/MDX content:
+  - [`/blogs`](src/pages/blogs/index.astro)
+  - [`/blogs/[slug]`](src/pages/blogs/[slug].astro)
+- Sticky footer with social links: [`Footer`](src/components/Footer.astro)
 
 ## Tech Stack
 
-- React 19 + Vite: [index.html](index.html), [`main`](src/main.jsx), [`vite.config`](vite.config.js)
-- Tailwind CSS v4 via plugin: [src/index.css](src/index.css)
-- Framer Motion: hover animations
-- React Icons: icon set
+- Astro 6 (static output): [`astro.config.mjs`](astro.config.mjs)
+- Tailwind CSS v4 via Vite plugin: [`src/styles/global.css`](src/styles/global.css)
+- Astro Content Collections + MDX:
+  - config: [`src/content.config.ts`](src/content.config.ts)
+  - content: [`src/content/blog`](src/content/blog)
+- Lucide icons and SVG brand icons:
+  - package: `@lucide/astro`
+  - local icons: [`src/assets/icons`](src/assets/icons)
+- Astro image optimization via `astro:assets` + `sharp`
 
 ## Getting Started
 
-- Prerequisites: Node.js 18+ recommended
+- Prerequisites: Node.js 22.12+
+- Package manager: `pnpm`
 
 Install dependencies:
 
 ```sh
-npm install
+pnpm install
 ```
 
 Run dev server:
 
 ```sh
-npm run dev
-```
-
-Lint:
-
-```sh
-npm run lint
+pnpm run dev
 ```
 
 Build for production:
 
 ```sh
-npm run build
+pnpm run build
 ```
 
 Preview production build:
 
 ```sh
-npm run preview
+pnpm run preview
 ```
 
 ## Project Structure
 
-```
+```text
 public/
   Resume.pdf
+  fonts/
 src/
-  App.jsx
-  index.css
-  main.jsx
   assets/
+    icons/
+    projects_images/
   components/
-    FeaturedProjects.jsx
-    Footer.jsx
-    Hero.jsx
-    Navbar.jsx
-    WorkExperience.jsx
+    FeaturedProjects.astro
+    Footer.astro
+    Hero.astro
+    Navbar.astro
+    ProjectCard.astro
+    WorkExperience.astro
+  content/
+    blog/
+  data/
+    projects.js
+  layouts/
+    Layout.astro
   pages/
-    Projects.jsx
+    index.astro
+    projects.astro
+    blogs/
+      index.astro
+      [slug].astro
+  styles/
+    global.css
+  content.config.ts
 ```
 
 ## Routing
 
-This app uses minimal path-based rendering in [`App`](src/App.jsx):
+- `/` renders the home page (Hero, WorkExperience, FeaturedProjects).
+- `/projects` renders all project cards.
+- `/blogs` renders blog index from content collection.
+- `/blogs/[slug]` renders individual Markdown/MDX posts.
 
-- “Home” renders the main article (Hero, WorkExperience, FeaturedProjects)
-- “Projects” renders [`Projects`](src/pages/Projects.jsx)
+All routes are statically generated during build.
 
-Deep links like /projects require SPA fallback (serve index.html for all routes) on your host.
+## Blogs
+
+Create blog posts in [`src/content/blog`](src/content/blog) using `.md` or `.mdx` files.
+
+Required frontmatter fields:
+
+```yaml
+---
+title: "Post title"
+description: "Short summary"
+pubDate: 2026-05-23
+tags:
+  - Astro
+draft: false
+---
+```
+
+Optional field:
+
+- `updatedDate`
+
+Collection schema lives in [`src/content.config.ts`](src/content.config.ts).
 
 ## Resume
 
-Place your PDF at [public/Resume.pdf](public/Resume.pdf). The Resume button in [`Hero`](src/components/Hero.jsx) links to `/Resume.pdf` and opens in a new tab.
+Place your PDF at [`public/Resume.pdf`](public/Resume.pdf). The Resume button in [`Hero`](src/components/Hero.astro) links to `/Resume.pdf` and opens in a new tab.
 
 ## Adding Projects
 
-- Projects page: edit the `projects` array in [`src/pages/Projects.jsx`](src/pages/Projects.jsx).
-- Featured list on home: edit the `projects` array in [`src/components/FeaturedProjects.jsx`](src/components/FeaturedProjects.jsx).
+Edit the `projects` array in [`src/data/projects.js`](src/data/projects.js).
 
 Example item:
 
 ```js
+import SampleImage from "../assets/projects_images/sample.webp";
+
 {
-  title: 'My App',
-  description: 'Short summary',
-  image: '/path-or-url.png',
-  technologies: ['React', 'TailwindCSS'],
-  links: { website: 'https://example.com', github: 'https://github.com/me/app' },
+  title: "My App",
+  description: "Short summary",
+  image: SampleImage,
+  technologies: ["Astro", "Tailwind"],
+  links: {
+    website: "https://example.com",
+    github: "https://github.com/me/app",
+  },
+  featured: true,
 }
 ```
 
 ## Styling
 
-Global styles and font are defined in [src/index.css](src/index.css). Layout uses a sticky header and a sticky footer via flex growth in [`App`](src/App.jsx) to keep the footer at the bottom on short pages.
+Global styles, fonts, and shared hover effects are defined in [`src/styles/global.css`](src/styles/global.css).
 
 ## Scripts
 
-See [package.json](package.json) for `dev`, `build`, `lint`, and `preview`.
+See [`package.json`](package.json) for available scripts:
+
+- `dev`
+- `build`
+- `preview`
+- `astro`

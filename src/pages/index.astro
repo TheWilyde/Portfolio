@@ -1,0 +1,26 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Navbar from "../components/Navbar.astro";
+import Hero from "../components/Hero.astro";
+import WorkExperience from "../components/WorkExperience.astro";
+import FeaturedProjects from "../components/FeaturedProjects.astro";
+import RecentBlogs from "../components/RecentBlogs.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<Layout title="Abdul Rehman | Home">
+  <div class="flex min-h-screen flex-col supports-[height:100dvh]:min-h-[100dvh]">
+    <Navbar />
+    <div class="mx-auto flex w-full max-w-3xl flex-1 flex-col px-8">
+      <main class="grow">
+        <article class="mt-8 flex flex-col gap-16 pb-10 sm:pb-16">
+          <Hero />
+          <WorkExperience />
+          <FeaturedProjects />
+          <RecentBlogs />
+        </article>
+      </main>
+    </div>
+    <Footer />
+  </div>
+</Layout>

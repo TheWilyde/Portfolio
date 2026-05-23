@@ -1,0 +1,156 @@
+---
+import AppualsLogo from "../assets/Appuals.webp";
+import IqraUniversityLogo from "../assets/IqraUniversity.webp";
+import { Image } from "astro:assets";
+
+const workExperience = [
+  {
+    company: "Appuals",
+    role: "Ghost Writer",
+    period: "Feb 2024 - Jul 2024",
+    logo: AppualsLogo,
+    website: "https://appuals.com/",
+    achievements: [
+      "Composed 20+ troubleshooting guides for common operating system and software errors, enabling users to resolve technical issues independently.",
+      "Conducted in-depth research to ensure accuracy and reliability of all guides, maintaining high-quality standards.",
+      "Refined and proofread content for clarity and consistency.",
+    ],
+  },
+];
+
+const education = [
+  {
+    institution: "Iqra University",
+    degree: "BS in Computer Science",
+    period: "Oct 2023 - 2027",
+    logo: IqraUniversityLogo,
+    website: "https://iuisl.iqra.edu.pk/",
+  },
+];
+---
+
+<section data-workexp>
+  <div class="mb-2 grid w-full grid-cols-2 rounded-lg bg-white/10 p-1">
+    <button
+      type="button"
+      data-tab-btn="work"
+      aria-pressed="true"
+      class="rounded-md bg-white/20 px-3 py-1 text-sm font-medium text-white shadow transition-all"
+    >
+      Work
+    </button>
+    <button
+      type="button"
+      data-tab-btn="education"
+      aria-pressed="false"
+      class="rounded-md px-3 py-1 text-sm font-medium text-white/80 transition-all"
+    >
+      Education
+    </button>
+  </div>
+
+  <div class="rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm">
+    <div data-tab-panel="work" class="p-0">
+      <ul class="ml-10 border-l border-white/20">
+        {
+          workExperience.map((item) => (
+            <li class="relative ml-10 py-4">
+              <a
+                href={item.website}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="absolute -left-16 top-4 flex items-center justify-center rounded-full bg-white"
+              >
+                <Image
+                  src={item.logo}
+                  alt={item.company}
+                  width={48}
+                  height={48}
+                  loading="lazy"
+                  class="size-12 rounded-full border object-contain"
+                />
+              </a>
+
+              <div class="flex flex-1 flex-col justify-start gap-1">
+                <time class="text-xs text-white/60">{item.period}</time>
+                <h2 class="font-semibold leading-none text-white">{item.company}</h2>
+                <p class="text-sm text-white/70">{item.role}</p>
+
+                <ul class="ml-4 list-outside list-disc">
+                  {
+                    item.achievements.map((achievement) => (
+                      <li class="pr-8 text-sm text-white/70">{achievement}</li>
+                    ))
+                  }
+                </ul>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <div data-tab-panel="education" class="p-0" hidden>
+      <ul class="ml-10 border-l border-white/20">
+        {
+          education.map((item) => (
+            <li class="relative ml-10 py-4">
+              <a
+                href={item.website}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="absolute -left-16 top-4 flex items-center justify-center rounded-full bg-white"
+              >
+                <Image
+                  src={item.logo}
+                  alt={item.institution}
+                  width={48}
+                  height={48}
+                  loading="lazy"
+                  class="size-12 rounded-full border object-contain"
+                />
+              </a>
+
+              <div class="flex flex-1 flex-col justify-start gap-1">
+                <time class="text-xs text-white/60">{item.period}</time>
+                <h2 class="font-semibold leading-none text-white">{item.institution}</h2>
+                <p class="text-sm text-white/70">{item.degree}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>
+
+<script>
+  const widgets = document.querySelectorAll<HTMLElement>("[data-workexp]");
+
+  widgets.forEach((widget) => {
+    const buttons = widget.querySelectorAll<HTMLButtonElement>("[data-tab-btn]");
+    const panels = widget.querySelectorAll<HTMLElement>("[data-tab-panel]");
+
+    const setTab = (target: string) => {
+      buttons.forEach((button) => {
+        const active = button.getAttribute("data-tab-btn") === target;
+        button.classList.toggle("bg-white/20", active);
+        button.classList.toggle("text-white", active);
+        button.classList.toggle("shadow", active);
+        button.classList.toggle("text-white/80", !active);
+        button.setAttribute("aria-pressed", String(active));
+      });
+
+      panels.forEach((panel) => {
+        panel.hidden = panel.getAttribute("data-tab-panel") !== target;
+      });
+    };
+
+    buttons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const target = button.getAttribute("data-tab-btn");
+        if (target) setTab(target);
+      });
+    });
+  });
+</script>

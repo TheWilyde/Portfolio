@@ -1,0 +1,83 @@
+---
+import GitHubIcon from "../assets/icons/github.svg";
+import { Globe } from "@lucide/astro";
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+
+type Project = {
+  title: string;
+  description: string;
+  image: ImageMetadata;
+  technologies: string[];
+  links: {
+    website?: string;
+    github?: string;
+  };
+};
+
+const { project } = Astro.props as { project: Project };
+const cardHref = project.links.website || project.links.github || "#";
+---
+
+<article class="flex flex-col rounded-xl border border-white/10 bg-white/5 shadow">
+  <div class="p-6">
+    <a href={cardHref} target="_blank" rel="noopener noreferrer">
+      <Image
+        src={project.image}
+        alt={project.title}
+        loading="lazy"
+        width={600}
+        height={300}
+        sizes="(max-width: 640px) 100vw, 600px"
+        widths={[320, 480, 600]}
+        class="h-40 w-full rounded-lg object-cover object-top"
+      />
+    </a>
+  </div>
+
+  <div class="flex flex-col gap-2 px-6 py-3 pt-0">
+    <h3 class="font-semibold text-white">{project.title}</h3>
+    <p class="text-xs text-white/70">{project.description}</p>
+  </div>
+
+  <div class="flex h-full flex-col items-start justify-between gap-4 p-6 pt-0">
+    <div class="flex flex-wrap gap-1">
+      {
+        project.technologies.map((tech) => (
+          <span class="rounded-md bg-white/10 px-1 py-0 text-[10px] font-semibold text-white">
+            {tech}
+          </span>
+        ))
+      }
+    </div>
+
+    <div class="flex flex-row flex-wrap items-start gap-1">
+      {
+        project.links.website && (
+          <a
+            href={project.links.website}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-1 rounded-md bg-[#a2f778] px-2 py-1 text-[10px] font-semibold text-black transition-colors hover:bg-white/30"
+          >
+            <Globe size={12} />
+            Website
+          </a>
+        )
+      }
+      {
+        project.links.github && (
+          <a
+            href={project.links.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-1 rounded-md bg-[#a2f778] px-2 py-1 text-[10px] font-semibold text-black transition-colors hover:bg-white/30"
+          >
+            <GitHubIcon width={12} height={12} />
+            Source
+          </a>
+        )
+      }
+    </div>
+  </div>
+</article>

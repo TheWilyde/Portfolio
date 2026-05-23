@@ -1,0 +1,47 @@
+---
+import GitHubIcon from "../assets/icons/github.svg";
+import LinkedInIcon from "../assets/icons/linkedin.svg";
+import { Mail } from "@lucide/astro";
+
+const currentYear = new Date().getFullYear();
+
+const socialLinks = [
+  { name: "LinkedIn", icon: LinkedInIcon, href: "https://www.linkedin.com/in/wilyde/" },
+  { name: "GitHub", icon: GitHubIcon, href: "https://github.com/TheWilyde" },
+  { name: "Email", icon: Mail, href: "mailto:thewilyde@gmail.com" },
+];
+---
+
+<footer class="w-full pt-12">
+  <div
+    class="mx-auto flex max-w-3xl flex-col items-center justify-center px-8 pb-8 sm:flex-row-reverse sm:justify-between"
+  >
+    <section class="social-row flex gap-3">
+      {
+        socialLinks.map((link) => {
+          const Icon = link.icon;
+          return (
+          <a
+            href={link.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="social-pill inline-flex h-8 w-8 items-center justify-center rounded-full border border-white/40 text-xs font-semibold text-white transition-colors duration-200"
+            title={link.name}
+          >
+            <span class="sr-only">{link.name}</span>
+            <Icon aria-hidden="true" width={16} height={16} />
+          </a>
+          );
+        })
+      }
+    </section>
+
+    <section class="mt-8 text-center sm:mt-0 sm:text-left">
+      <p class="text-xs text-white/60">
+        © {currentYear}
+        {" "}
+        <a href="/" class="font-medium text-white/80 transition-colors hover:text-white">wilyde.com</a>
+      </p>
+    </section>
+  </div>
+</footer>

@@ -1,0 +1,37 @@
+---
+const currentPath = Astro.url.pathname;
+const navLinks = [
+  { label: "Home", href: "/" },
+  { label: "Projects", href: "/projects" },
+  { label: "Blogs", href: "/blogs" },
+  { label: "Contact", href: "mailto:thewilyde@gmail.com" },
+];
+---
+
+<header class="sticky top-0 z-50 border-b border-white/10 backdrop-blur-sm">
+  <div class="mx-auto max-w-3xl px-8 py-6">
+    <nav class="flex items-center justify-start">
+      <ul class="nav-list flex gap-6 sm:gap-8">
+        {
+          navLinks.map((link) => {
+            const active = link.href.startsWith("/") && currentPath === link.href;
+            return (
+              <li>
+                <a
+                  href={link.href}
+                  class:list={[
+                    "nav-link text-base font-medium transition-colors duration-200",
+                    active && "active",
+                  ]}
+                  aria-current={active ? "page" : undefined}
+                >
+                  {link.label}
+                </a>
+              </li>
+            );
+          })
+        }
+      </ul>
+    </nav>
+  </div>
+</header>

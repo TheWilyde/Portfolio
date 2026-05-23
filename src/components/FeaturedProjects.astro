@@ -1,0 +1,33 @@
+---
+import { MoveRight } from "@lucide/astro";
+import { projects } from "../data/projects.js";
+import ProjectCard from "./ProjectCard.astro";
+
+const marked = projects.filter((project) => project.featured);
+const featured = marked.length ? marked.slice(0, 2) : projects.slice(0, 2);
+---
+
+<section class="flex flex-col gap-6">
+  <div class="flex justify-between">
+    <h2 class="text-2xl font-bold text-white sm:text-3xl">Featured Projects</h2>
+    <a
+      href="/projects"
+      class="flex items-center gap-2 whitespace-nowrap font-light text-white/70 transition-colors hover:text-white"
+    >
+      <span class="hidden sm:inline">view more</span>
+      <MoveRight aria-hidden="true" size={16} />
+    </a>
+  </div>
+
+  {
+    featured.length === 0 ? (
+      <div class="rounded-xl border border-white/10 bg-white/5 p-6 text-center">
+        <p class="text-sm text-white/80">No projects yet. Building in multiverse. Check back soon.</p>
+      </div>
+    ) : (
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        {featured.map((project) => <ProjectCard project={project} />)}
+      </div>
+    )
+  }
+</section>

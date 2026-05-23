@@ -1,17 +1,4 @@
-import MarkedImage from '../assets/projects_images/Marked.webp';
-
 export const projects = [
-  {
-    title: 'Marked',
-    description: 'A minimal note‑taking app with live Markdown preview.',
-    image: MarkedImage,
-    technologies: ['React', 'React Router', 'TypeScript', 'Tailwind'],
-    links: {
-      website: 'https://wilyde-marked.netlify.app/',
-      github: 'https://github.com/TheWilyde/Marked',
-    },
-    featured: true,
-  },
   /*{
     title: 'Your Project',
     description: 'Short summary...',

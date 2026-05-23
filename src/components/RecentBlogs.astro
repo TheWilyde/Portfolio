@@ -1,0 +1,66 @@
+---
+import { getCollection } from "astro:content";
+import { MoveRight } from "@lucide/astro";
+
+const posts = (await getCollection("blog", ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 2);
+
+const formatDate = (date: Date) =>
+  new Intl.DateTimeFormat("en-US", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  }).format(date);
+---
+
+<section class="flex flex-col gap-6">
+  <div class="flex justify-between">
+    <h2 class="text-2xl font-bold text-white sm:text-3xl">Recent Blogs</h2>
+    <a
+      href="/blogs"
+      class="flex items-center gap-2 whitespace-nowrap font-light text-white/70 transition-colors hover:text-white"
+    >
+      <span class="hidden sm:inline">view more</span>
+      <MoveRight aria-hidden="true" size={16} />
+    </a>
+  </div>
+
+  {
+    posts.length === 0 ? (
+      <div class="rounded-xl border border-white/10 bg-white/5 p-6 text-center">
+        <p class="text-sm text-white/80">No blog posts yet.</p>
+      </div>
+    ) : (
+      <section class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        {posts.map((post) => (
+          <a
+            href={`/blogs/${post.id}`}
+            class="group rounded-xl border border-white/10 bg-white/5 p-5 transition-colors hover:border-white/30"
+          >
+            <div class="flex h-full flex-col gap-3">
+              <div class="flex items-center justify-between gap-3">
+                <h3 class="text-lg font-semibold text-white">{post.data.title}</h3>
+                <time class="shrink-0 text-xs text-white/60">{formatDate(post.data.pubDate)}</time>
+              </div>
+
+              <p class="text-sm text-white/75">{post.data.description}</p>
+
+              {post.data.tags.length > 0 && (
+                <div class="flex flex-wrap gap-1">
+                  {post.data.tags.map((tag) => (
+                    <span class="rounded-md bg-white/10 px-2 py-0.5 text-[10px] font-semibold text-white">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              )}
+
+              <p class="mt-auto text-xs font-medium text-[#a2f778]">Read post -></p>
+            </div>
+          </a>
+        ))}
+      </section>
+    )
+  }
+</section>

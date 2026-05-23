@@ -1,0 +1,69 @@
+---
+import { getCollection } from "astro:content";
+import Footer from "../../components/Footer.astro";
+import Navbar from "../../components/Navbar.astro";
+import Layout from "../../layouts/Layout.astro";
+
+const posts = (await getCollection("blog", ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+
+const formatDate = (date: Date) =>
+  new Intl.DateTimeFormat("en-US", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  }).format(date);
+---
+
+<Layout title="Abdul Rehman | Blogs" description="Blog posts by Abdul Rehman.">
+  <div class="flex min-h-screen flex-col supports-[height:100dvh]:min-h-[100dvh]">
+    <Navbar />
+    <div class="mx-auto flex w-full max-w-3xl flex-1 flex-col px-8">
+      <main class="grow">
+        <article class="mt-8 flex flex-col gap-8 pb-16">
+          <h1 class="text-3xl font-bold text-white sm:text-4xl">Blogs</h1>
+
+          {
+            posts.length === 0 ? (
+              <div class="rounded-xl border border-white/10 bg-white/5 p-6">
+                <p class="text-sm text-white/80">No blog posts yet.</p>
+              </div>
+            ) : (
+              <section class="grid grid-cols-1 gap-4">
+                {posts.map((post) => (
+                  <a
+                    href={`/blogs/${post.id}`}
+                    class="group rounded-xl border border-white/10 bg-white/5 p-5 transition-colors hover:border-white/30"
+                  >
+                    <div class="flex flex-col gap-3">
+                      <div class="flex items-center justify-between gap-3">
+                        <h2 class="text-xl font-semibold text-white">{post.data.title}</h2>
+                        <time class="shrink-0 text-xs text-white/60">{formatDate(post.data.pubDate)}</time>
+                      </div>
+
+                      <p class="text-sm text-white/75">{post.data.description}</p>
+
+                      {post.data.tags.length > 0 && (
+                        <div class="flex flex-wrap gap-1">
+                          {post.data.tags.map((tag) => (
+                            <span class="rounded-md bg-white/10 px-2 py-0.5 text-[10px] font-semibold text-white">
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+
+                      <p class="text-xs font-medium text-[#a2f778]">Read post -></p>
+                    </div>
+                  </a>
+                ))}
+              </section>
+            )
+          }
+        </article>
+      </main>
+    </div>
+    <Footer />
+  </div>
+</Layout>
