@@ -24,7 +24,13 @@ const formatDate = (date: Date) =>
   }).format(date);
 ---
 
-<Layout title={`${post.data.title} | Blog`} description={post.data.description}>
+<Layout
+  title={`${post.data.title} | Blog`}
+  description={post.data.description}
+  type="article"
+  publishedTime={post.data.pubDate.toISOString()}
+  modifiedTime={post.data.updatedDate?.toISOString()}
+>
   <div class="flex min-h-screen flex-col supports-[height:100dvh]:min-h-[100dvh]">
     <Navbar />
     <div class="mx-auto flex w-full max-w-3xl flex-1 flex-col px-8">

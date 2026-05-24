@@ -1,9 +1,16 @@
 ---
 import "../styles/global.css";
+import SEO from "../components/SEO.astro";
 
 const {
-  title = "Abdul Rehman",
+  title = "Abdul Rehman | Portfolio",
   description = "Portfolio of Abdul Rehman, software engineer from Pakistan.",
+  image = "/og-cover.svg",
+  canonical,
+  type = "website",
+  noindex = false,
+  publishedTime,
+  modifiedTime,
 } = Astro.props;
 ---
 
@@ -12,10 +19,19 @@ const {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta name="description" content={description} />
+    <SEO
+      title={title}
+      description={description}
+      image={image}
+      canonical={canonical}
+      type={type}
+      noindex={noindex}
+      publishedTime={publishedTime}
+      modifiedTime={modifiedTime}
+    />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
-    <title>{title}</title>
   </head>
   <body>
     <slot />

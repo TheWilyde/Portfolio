@@ -1,0 +1,52 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  canonical?: string;
+  type?: "website" | "article";
+  noindex?: boolean;
+  publishedTime?: string;
+  modifiedTime?: string;
+}
+
+const {
+  title = "Abdul Rehman | Portfolio",
+  description = "Portfolio of Abdul Rehman, software engineer from Pakistan.",
+  image = "/og-cover.svg",
+  canonical,
+  type = "website",
+  noindex = false,
+  publishedTime,
+  modifiedTime,
+} = Astro.props as Props;
+
+const site = Astro.site ?? new URL("https://wilyde.netlify.app/");
+const canonicalUrl = canonical
+  ? new URL(canonical, site).toString()
+  : new URL(`${Astro.url.pathname}${Astro.url.search}`, site).toString();
+const socialImage = new URL(image, site).toString();
+const robots = noindex ? "noindex,nofollow" : "index,follow";
+---
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<meta name="robots" content={robots} />
+<link rel="canonical" href={canonicalUrl} />
+
+<meta property="og:type" content={type} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonicalUrl} />
+<meta property="og:site_name" content="Abdul Rehman Portfolio" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:image" content={socialImage} />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={socialImage} />
+<meta name="twitter:creator" content="@thewilyde" />
+
+{publishedTime && <meta property="article:published_time" content={publishedTime} />}
+{modifiedTime && <meta property="article:modified_time" content={modifiedTime} />}
