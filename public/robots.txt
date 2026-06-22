@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://wilyde.netlify.app/sitemap-index.xml
+Sitemap: https://wilyde.com/sitemap-index.xml

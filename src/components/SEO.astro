@@ -21,7 +21,7 @@ const {
   modifiedTime,
 } = Astro.props as Props;
 
-const site = Astro.site ?? new URL("https://wilyde.netlify.app/");
+const site = Astro.site ?? new URL("https://wilyde.com");
 const canonicalUrl = canonical
   ? new URL(canonical, site).toString()
   : new URL(`${Astro.url.pathname}${Astro.url.search}`, site).toString();
